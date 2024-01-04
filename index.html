@@ -58,25 +58,57 @@
 </head>
 
 <body>
-    <div class="loader"></div>
-    <video id="video1" width="100%" height=auto controls autoplay muted loop>
-        <source src="1gandaperunda.mp4" type="video/mp4">
-    </video>
-    <video id="video2" width="100%" height=auto controls autoplay muted loop>
-        <source src="2tradelabs.mp4" type="video/mp4">
-    </video>
+    <div class="slideshow-container" style="width: 100%; background-color: black;">
 
-    <script type='text/javascript'>
-        var count = 1;
-        var player1 = document.getElementById('video1');
-        var player2 = document.getElementById('video2');
-        player1.addEventListener('ended', myHandler, false);
+        <div class="mySlides fade">
+            <video class="vid" autoplay muted loop>
+                <source src="1gandaperunda.mp4" type="video/mp4">
+        </div>
 
-        function myHandler(e) {
-            player2.play();
-        }
+        <div class="mySlides fade">
+            <video class="vid" autoplay muted loop>
+                <source src="2tradelabs.mp4" type="video/mp4">
+        </div>
+
+        <div style="text-align:center;background-color: black;">
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+        <script>
+            let slideIndex = 0;
+            showSlides();
+
+            function showSlides() {
+                let i;
+                let slides = document.getElementsByClassName("mySlides");
+                let dots = document.getElementsByClassName("dot");
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                    let video = slides[i].querySelector('video');
+                    video.pause(); // Pause all videos when hiding the slide
+                }
+                slideIndex++;
+                if (slideIndex > slides.length) { slideIndex = 1 }
+                for (i = 0; i < dots.length; i++) {
+                    dots[i].className = dots[i].className.replace(" active", "");
+                }
+                slides[slideIndex - 1].style.display = "block";
+                dots[slideIndex - 1].className += " active";
+                let video = slides[slideIndex - 1].querySelector('video');
+                video.play(); // Play the video of the current slide
+                setTimeout(showSlides, 10100); // Change slide every 10 seconds
+            }
+        </script>
+    </div>
+
+    <script>
+        window.addEventListener("load", function () {
+            var video = document.querySelector("video");
+            video.play();
+        });
 
     </script>
+
 
 </body>
 
